@@ -3,10 +3,28 @@
 'use strict';
 
 const childProcess = require('child_process');
+const fs = require('fs');
+
 const Promise = require('bluebird');
-const DEFAULT_BRANCH_NAME = 'master';
-const RUN_WITH_NODE = process.argv[0].includes('node');
-const selectedBranchName = process.argv[RUN_WITH_NODE ? 2 : 1] || DEFAULT_BRANCH_NAME;
+const selectedBranchName = determineBranchName();
+
+/**
+ * Determines default branch from args, environment variables, a config file
+ * @returns {string} default branch name
+ */
+function determineBranchName () {
+  const DEFAULT_BRANCH_NAME = 'master';
+  const RUN_WITH_NODE = process.argv[0].includes('node');
+  const configBranchName = (function () {
+    try {
+      const config = fs.existsSync('.gds') ? fs.readFileSync('.gds', { encoding: 'utf-8' }) : null;
+      return JSON.parse(config).defaultBranch;
+    } catch (e) {
+      return null;
+    }
+  }());
+  return process.argv[RUN_WITH_NODE ? 2 : 1] || process.env.DEFAULT_BRANCH_NAME || configBranchName || DEFAULT_BRANCH_NAME;
+}
 
 /**
  * Calls `git` with the given arguments from the CWD
@@ -30,7 +48,7 @@ function git (args) {
 git(['for-each-ref', 'refs/heads/', '--format=%(refname:short)'])
   .then(branchListOutput => branchListOutput.split('\n'))
   .tap(branchNames => {
-    if (branchNames.indexOf(selectedBranchName) === -1) {
+    if (!branchNames.includes(selectedBranchName)) {
       throw `fatal: no branch named '${selectedBranchName}' found in this repo`;
     }
   }).filter(branchName =>
@@ -38,10 +56,10 @@ git(['for-each-ref', 'refs/heads/', '--format=%(refname:short)'])
     Promise.join(
       git(['merge-base', selectedBranchName, branchName]),
       git(['rev-parse', `${branchName}^{tree}`]),
-      (ancestorHash, treeId) => git(['commit-tree', treeId, '-p', ancestorHash, '-m', `Temp commit for ${branchName}`])
+      (ancestorHash, treeId) => git(['commit-tree', treeId, '-p', ancestorHash, '-m', `Temp commit for ${branchName}`]),
     )
       .then(danglingCommitId => git(['cherry', selectedBranchName, danglingCommitId]))
-      .then(output => output.startsWith('-'))
+      .then(output => output.startsWith('-')),
   )
   .tap(branchNamesToDelete => branchNamesToDelete.length && git(['checkout', selectedBranchName]))
   .mapSeries(branchName => git(['branch', '-D', branchName]))
