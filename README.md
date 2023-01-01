@@ -27,6 +27,8 @@ Additionally, you can specify an alternate branch to check for squashed merges, 
 ```bash
 $ npm install --global git-delete-squashed
 $ git-delete-squashed
+$ # or simply
+$ gds
 $ # Specify a different branch name like so
 $ git-delete-squashed main
 ```
