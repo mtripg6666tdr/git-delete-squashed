@@ -1,6 +1,6 @@
 {
   "name": "@mtripg6666tdr/git-delete-squashed",
-  "version": "1.0.0",
+  "version": "1.0.0-based.1.0.4",
   "description": "Delete branches that have been squashed and merged into master",
   "publishConfig": {
     "access": "public"
