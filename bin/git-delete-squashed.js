@@ -17,7 +17,12 @@ function determineBranchName () {
   const RUN_WITH_NODE = process.argv[0].includes('node');
   const configBranchName = (function () {
     try {
-      const config = fs.existsSync('.gds') ? fs.readFileSync('.gds', { encoding: 'utf-8' }) : null;
+      const config = fs.existsSync('.gds')
+        ? fs.readFileSync('.gds', { encoding: 'utf-8' })
+        : fs.existsSync('.git-delete-squashed')
+          ? fs.readFileSync('.git-delete-squashed', { encoding: 'utf-8' })
+          : null
+      ;
       return JSON.parse(config).defaultBranch;
     } catch (e) {
       return null;
