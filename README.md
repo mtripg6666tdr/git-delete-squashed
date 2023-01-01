@@ -50,3 +50,9 @@ Alternatively, you can create `.gds` (or `.git-delete-squashed`) file to specify
 ## Details
 
 To determine if a branch is squash-merged, git-delete-squashed creates a temporary dangling squashed commit with [`git commit-tree`](https://git-scm.com/docs/git-commit-tree). Then it uses [`git cherry`](https://git-scm.com/docs/git-cherry) to check if the squashed commit has already been applied to the default branch. If so, it deletes the branch.
+
+## Credit
+This is a fork of [git-delete-squashed](https://github.com/not-an-aardvark/git-delete-squashed). I appreciate the owner and all contributors.
+
+## License
+[MIT](LICENSE.md)
