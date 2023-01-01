@@ -1,7 +1,10 @@
 {
   "name": "@mtripg6666tdr/git-delete-squashed",
-  "version": "1.0.4",
+  "version": "1.0.0",
   "description": "Delete branches that have been squashed and merged into master",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "lint": "eslint bin/",
     "test": "npm run lint"
@@ -12,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/not-an-aardvark/git-delete-squashed.git"
+    "url": "git+https://github.com/mtripg6666tdr/git-delete-squashed.git"
   },
   "keywords": [
     "git"
@@ -20,12 +23,12 @@
   "author": "Teddy Katz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/not-an-aardvark/git-delete-squashed/issues"
+    "url": "https://github.com/mtripg6666tdr/git-delete-squashed/issues"
   },
   "engines": {
     "node": ">=8.0.0"
   },
-  "homepage": "https://github.com/not-an-aardvark/git-delete-squashed#readme",
+  "homepage": "https://github.com/mtripg6666tdr/git-delete-squashed#readme",
   "dependencies": {
     "bluebird": "^3.7.2"
   },
