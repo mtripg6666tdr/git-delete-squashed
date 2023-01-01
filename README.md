@@ -6,6 +6,7 @@ This is useful if you work on a project that squashes branches into master. Afte
 
 ## Usage
 
+<!--
 ### sh
 
 To run as a shellscript, simply copy the following command (setting up an alias is recommended). There's no need to clone the repo.
@@ -20,7 +21,9 @@ git config --global alias.delete-squashed '!f() { local targetBranch=${1:-master
 
 ### Node.js
 
-You can also install the tool as a Node.js package from NPM. (The package code is in this repo.)
+-->
+
+You can <!-- also --> install the tool as a Node.js package from NPM. (The package code is in this repo.)
 
 Additionally, you can specify an alternate branch to check for squashed merges, as well. This is useful for different names of trunk branches like `main` or `develop`.
 
@@ -46,4 +49,4 @@ Alternatively, you can create `.gds` (or `.git-delete-squashed`) file to specify
 
 ## Details
 
-To determine if a branch is squash-merged, git-delete-squashed creates a temporary dangling squashed commit with [`git commit-tree`](https://git-scm.com/docs/git-commit-tree). Then it uses [`git cherry`](https://git-scm.com/docs/git-cherry) to check if the squashed commit has already been applied to `master`. If so, it deletes the branch.
+To determine if a branch is squash-merged, git-delete-squashed creates a temporary dangling squashed commit with [`git commit-tree`](https://git-scm.com/docs/git-commit-tree). Then it uses [`git cherry`](https://git-scm.com/docs/git-cherry) to check if the squashed commit has already been applied to the default branch. If so, it deletes the branch.
