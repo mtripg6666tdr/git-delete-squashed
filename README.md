@@ -25,13 +25,24 @@ You can also install the tool as a Node.js package from NPM. (The package code i
 Additionally, you can specify an alternate branch to check for squashed merges, as well. This is useful for different names of trunk branches like `main` or `develop`.
 
 ```bash
-$ npm install --global git-delete-squashed
+$ npm install --global @mtripg6666tdr/git-delete-squashed
 $ git-delete-squashed
 $ # or simply
 $ gds
 $ # Specify a different branch name like so
 $ git-delete-squashed main
 ```
+
+Alternatively, you can create `.gds` (or `.git-delete-squashed`) file to specify your default branch name.  
+`.git-delete-squashed`
+```json
+{
+  "namespace": "@mtripg6666tdr/git-delete-squashed",
+  "defaultBranch": "main"
+}
+```
+
+> `namespace` is optional key.
 
 ## Details
 
