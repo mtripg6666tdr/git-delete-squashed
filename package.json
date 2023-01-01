@@ -7,7 +7,8 @@
     "test": "npm run lint"
   },
   "bin": {
-    "git-delete-squashed": "bin/git-delete-squashed.js"
+    "git-delete-squashed": "bin/git-delete-squashed.js",
+    "gds": "bin/git-delete-squashed.js"
   },
   "repository": {
     "type": "git",
